@@ -11,7 +11,8 @@ export default function App () {
     const FilmleriAl = () => {
       axios
         .get('http://localhost:5001/api/filmler') // Burayı Postman'le çalışın
-        .then(response => {
+        .then(response => {console.log('geldiii mi'+response.data);
+          setMovieList(response.data)
           // Bu kısmı log statementlarıyla çalışın
           // ve burdan gelen response'u 'movieList' e aktarın
         })
