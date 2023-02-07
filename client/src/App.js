@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Film from './Filmler/Film';
 import KaydedilenlerListesi from './Filmler/KaydedilenlerListesi';
+import { BrowserRouter,Route,Switch, useParams } from 'react-router-dom';
+import FilmListesi from './Filmler/FilmListesi';
 
 export default function App () {
   const [saved, setSaved] = useState([]); // Stretch: the ids of "saved" movies
@@ -24,14 +26,22 @@ export default function App () {
   }, []);
 
   const KaydedilenlerListesineEkle = id => {
-    // Burası esnek. Aynı filmin birden fazla kez "saved" e eklenmesini engelleyin
+    console.log("oldu oldu");
+    setSaved([...saved,id]);
   };
 
   return (
+    
     <div>
-      <KaydedilenlerListesi list={[ /* Burası esnek */]} />
+      <KaydedilenlerListesi list={[]}/>
+      <Switch>
+      <Route path="/FilmListesi"><FilmListesi movies={movieList} /></Route>
 
-      <div>Bu Div'i kendi Routelarınızla değiştirin</div>
+      <Route path="/filmler/:id">
+        <Film saveButton={KaydedilenlerListesineEkle}/>
+      </Route>
+      </Switch>
     </div>
+    
   );
 }
